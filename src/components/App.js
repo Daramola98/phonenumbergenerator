@@ -1,7 +1,8 @@
 import React from 'react';
+import fileDownload from 'js-file-download';
 
 import NumbersTable from './NumberTable';
-import { generatePhoneNumbers } from '../utils';
+import { generatePhoneNumbers, formatDataForDownload, findMaxAndMin } from '../utils';
 import '../styles/App.css';
 
 class App extends React.Component {
@@ -17,17 +18,31 @@ class App extends React.Component {
   onNumberCountSubmit = (event) => {
     const { numberCount } = this.state;
     event.preventDefault();
-    console.log(generatePhoneNumbers(Number(numberCount)));
     this.setState({ numbersList: generatePhoneNumbers(Number(numberCount)) });
+  }
+
+  handleDownloadClick = (event) => {
+    const { numbersList } = this.state;
+    if (!numbersList.length) return;
+    return fileDownload(formatDataForDownload(numbersList), 'numbersList.txt');
   }
 
   renderTableAndDownloadButton = () => {
     const { numbersList } = this.state;
+    const [minNumber, maxNumber] = findMaxAndMin(numbersList);
     return (
       <div className="rc-NumberTable">
         <div className="download-section">
-          <button className="download">Click Here To Download Number List</button>
+          <button className="download" onClick={this.handleDownloadClick}>
+            Click Here To Download Number List
+          </button>
         </div>
+        <div className="report">
+          <span> Max Number: {maxNumber}</span>
+          <br/>
+          <span> Min Number: {minNumber}</span>
+        </div>
+        <br/>
         <NumbersTable numbersList={numbersList}/>
       </div>
     )

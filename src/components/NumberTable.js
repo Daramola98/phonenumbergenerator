@@ -7,8 +7,11 @@ const NumbersTable = ({ numbersList }) => {
     const tableData = formatDataForNumberTable(numbersList);
     const columns = [
     {
-      Header: 'Numbers',
-      accessor: 'number'
+      Header: 'NUMBERS',
+      accessor: 'number',
+      sortMethod: (a, b) => {
+        return Number(a) - Number(b);
+      }
     }];
 
     return (
@@ -23,6 +26,7 @@ const NumbersTable = ({ numbersList }) => {
               desc: true
             }
           ]}
+        className="-striped -highlight"
       />
     );
 };
