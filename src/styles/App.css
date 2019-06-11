@@ -1,0 +1,25 @@
+.App {
+  text-align: center;
+}
+
+.rc-NumberCountForm {
+  margin-bottom: 30px;
+}
+
+.rc-NumberTable {
+  max-width: 50%;
+  margin: auto;
+}
+
+.generateButton, .numberCountInput{
+  padding: 10px;
+  margin-top: 15px;
+  font-size: 0.8rem;
+}
+
+.download {
+  padding: 7px;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  background-color: greenyellow;
+}

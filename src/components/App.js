@@ -1,0 +1,64 @@
+import React from 'react';
+
+import NumbersTable from './NumberTable';
+import { generatePhoneNumbers } from '../utils';
+import '../styles/App.css';
+
+class App extends React.Component {
+  state = {
+    numberCount: 10,
+    numbersList: []
+  }
+
+  onNumberCountChange = (event) => {
+    this.setState({ numberCount: event.target.value });
+  }
+
+  onNumberCountSubmit = (event) => {
+    const { numberCount } = this.state;
+    event.preventDefault();
+    console.log(generatePhoneNumbers(Number(numberCount)));
+    this.setState({ numbersList: generatePhoneNumbers(Number(numberCount)) });
+  }
+
+  renderTableAndDownloadButton = () => {
+    const { numbersList } = this.state;
+    return (
+      <div className="rc-NumberTable">
+        <div className="download-section">
+          <button className="download">Click Here To Download Number List</button>
+        </div>
+        <NumbersTable numbersList={numbersList}/>
+      </div>
+    )
+  }
+
+  renderNumberCountForm = () => {
+    const { numberCount } = this.state;
+    return (
+      <div className="rc-NumberCountForm">
+        <form onSubmit={this.onNumberCountSubmit}>
+          <label htmlFor="numberCount">Amount of Numbers to Generate: </label>
+          <br />
+          <input className="numberCountInput" name="numberCount" type="number" value={numberCount} max="10000" onChange={this.onNumberCountChange} />
+          <br/>
+          <button className="generateButton" type="submit">Generate Phone Numbers</button>
+          <br />
+        </form>
+      </div>
+    );
+  }
+
+  render() {
+    const { numbersList } = this.state;
+    return (
+      <div className="App">
+        <h3>Phone Number Generator</h3>
+        { this.renderNumberCountForm() }
+        { numbersList.length > 0 && this.renderTableAndDownloadButton() }
+      </div>
+    );
+  }
+}
+
+export default App;
