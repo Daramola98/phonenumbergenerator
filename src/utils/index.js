@@ -28,7 +28,7 @@ const formatDataForNumberTable = (numberList) => {
 
 const formatDataForDownload = (numberList) => {
     if (Array.isArray(numberList) && !numberList.length){
-        return [];
+        return "";
     }
     return numberList.map((number) => number+'\n').join(' ');
 };

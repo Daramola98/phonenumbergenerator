@@ -1,7 +1,7 @@
 import React from 'react';
 import fileDownload from 'js-file-download';
 
-import NumbersTable from './NumberTable';
+import NumbersTable from './NumbersTable';
 import { generatePhoneNumbers, formatDataForDownload, findMaxAndMin } from '../utils';
 import '../styles/App.css';
 
@@ -23,7 +23,6 @@ class App extends React.Component {
 
   handleDownloadClick = (event) => {
     const { numbersList } = this.state;
-    if (!numbersList.length) return;
     return fileDownload(formatDataForDownload(numbersList), 'numbersList.txt');
   }
 
@@ -52,10 +51,10 @@ class App extends React.Component {
     const { numberCount } = this.state;
     return (
       <div className="rc-NumberCountForm">
-        <form onSubmit={this.onNumberCountSubmit}>
+        <form className="numberCountForm" onSubmit={this.onNumberCountSubmit}>
           <label htmlFor="numberCount">Amount of Numbers to Generate: </label>
           <br />
-          <input className="numberCountInput" name="numberCount" type="number" value={numberCount} max="10000" onChange={this.onNumberCountChange} />
+          <input className="numberCountInput" name="numberCount" type="number" value={numberCount} max="10000" min="0" onChange={this.onNumberCountChange} />
           <br/>
           <button className="generateButton" type="submit">Generate Phone Numbers</button>
           <br />
